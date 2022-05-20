@@ -12,43 +12,23 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
     [SerializeField]
     protected SimpleRandomWalkSO randomWalkParameters; // scriptable object
 
-    private HashSet<Vector2Int> floorPositions;
-    private HashSet<Vector2Int> wallPositions;
+    /*
+    public override void GenerateDungeon()
+    {
+        tilemapVisualizer.Clear();
+        floorPositions.Clear();
+        wallPositions.Clear();
+
+        RunProceduralGeneration();
+    }*/
 
     // Generates the dungeon. Overrides method from suberclass
-    protected override void RunProceduralGeneration()
+    public override void RunProceduralGeneration()
     {
-        generator = new DungeonGenerator(50, startPosition.x, startPosition.y,
-            randomWalkParameters.iterations, randomWalkParameters.walkLength);
+        dungeon = new RandomWalkRoom(dungeonWidth, dungeonHeight, startPosition.x, startPosition.y,
+            randomWalkParameters.iterations, randomWalkParameters.walkLength, false);
 
-        floorPositions = new HashSet<Vector2Int>();
-        wallPositions = new HashSet<Vector2Int>();
-
-        BuildTileData(); // get the tile positions
-
-        tilemapVisualizer.Clear();
-        tilemapVisualizer.PaintFloorTiles(floorPositions); // adds floor tiles to the tile map
-        tilemapVisualizer.PaintWallTiles(wallPositions);
-
-        //WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
+        GenerateTiles();
     }
-
-    protected void BuildTileData()
-    {
-        int[,] mapValues = generator.GetMap();
-
-        for (int y = 0; y < mapValues.GetLength(0); y++)
-        {
-            for (int x = 0; x < mapValues.GetLength(1); x++)
-            {
-                if (mapValues[x, y] == 1)
-                    floorPositions.Add(new Vector2Int(x, y));
-                else if(mapValues[x, y] == -1)
-                    wallPositions.Add(new Vector2Int(x, y));
-            }
-        }
-       
-    }
-
 
 }

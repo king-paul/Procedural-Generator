@@ -6,11 +6,14 @@ using UnityEngine;
 [CustomEditor(typeof(AbstractDungeonGenerator), true)]
 public class RandomDungeonGeneratorEditor : Editor
 {
-    AbstractDungeonGenerator generator;
+    AbstractDungeonGenerator creator;
+
+    private HashSet<Vector2Int> floorPositions;
+    private HashSet<Vector2Int> wallPositions;
 
     private void Awake()
     {
-        generator = (AbstractDungeonGenerator) target; // set target of custom inspector        
+        creator = (AbstractDungeonGenerator) target; // set target of custom inspector        
     }
 
     // create custom inspector with a button
@@ -19,7 +22,7 @@ public class RandomDungeonGeneratorEditor : Editor
         base.OnInspectorGUI();
         if (GUILayout.Button("Create Dungeon"))
         {
-            generator.GenerateDungeon();
+            creator.GenerateDungeon();
 
         }
     }

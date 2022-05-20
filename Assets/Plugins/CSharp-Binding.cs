@@ -7,43 +7,127 @@ namespace ProceduralGeneration
 {
 	public class DungeonGenerator
 	{
-		private readonly IntPtr dungeonPointer;
-		private int size;
+		protected int[,] map;
 
-		private int[,] map;
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="width"></param>
+		/// <param name="height"></param>
+		/// <param name="startX"></param>
+		/// <param name="startY"></param>
+		/// <param name="iterations"></param>
+		/// <param name="walkLength"></param>
+		/// <param name="startRandomly"></param>
+		/// <returns></returns>
 		[DllImport("Procedural Generation Library.dll")]
-		private static extern void TestFunction();
+		protected static extern IntPtr CreateRandomWalkRoom(
+			int width, int height, int startX, int startY, int iterations, int walkLength, bool startRandomly = true);
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="width"></param>
+		/// <param name="height"></param>
+		/// <param name="startX"></param>
+		/// <param name="staryY"></param>
+		/// <param name="corridorLength"></param>
+		/// <param name="totalCorridors"></param>
+		/// <param name="roomPercent"></param>
+		/// <param name="roomWalkIterations"></param>
+		/// <param name="roomWalkLength"></param>
+		/// <param name="startRandomlyEachWalk"></param>
+		/// <returns></returns>
 		[DllImport("Procedural Generation Library.dll")]
-		private static extern IntPtr CreateRandomWalkRoom(
-			int size, int startX, int startY, int iterations, int walkLength, bool startRandomly = true);
+		protected static extern IntPtr CreateCorridorFirstDungeon(
+								int width, int height, int startX, int staryY, int corridorLength, int totalCorridors, float roomPercent,
+								int roomWalkIterations = 15, int roomWalkLength = 10, bool startRandomlyEachWalk = false);
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="dungeonPtr"></param>
 		[DllImport("Procedural Generation Library.dll")]
-		private static extern int GetSpaceValue(IntPtr dungeon, int x, int y);
+		protected static extern void GenerateDungeon(IntPtr dungeonPtr);
 
-		public DungeonGenerator(int size, int startX = 0, int startY = 0, int iterations = 50, int walkLength = 15)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="dungeonPtr"></param>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <returns></returns>
+		[DllImport("Procedural Generation Library.dll")]
+		protected static extern int GetSpaceValue(IntPtr dungeonPtr, int x, int y);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="width"></param>
+		/// <param name="height"></param>
+		protected DungeonGenerator(int width, int height)
 		{
-			this.size = size;
-			map = new int[size, size];
+			//this.size = size;
+			map = new int[width, height];
+		}
 
-			dungeonPointer = CreateRandomWalkRoom(size, startX, startY, iterations, walkLength, false);
+		/// <summary>
+		/// Fills the map array with integer values by reading the map data from the DLL file
+		/// </summary>
+		/// <param name="dungeonPointer">Reference to the object return from DLL</param>
+		protected void BuildMap(IntPtr dungeonPointer)
+		{
+			GenerateDungeon(dungeonPointer);
 
-			for (int y = 0; y < size; y++)
+			for (int y = 0; y < map.GetLength(0); y++)
 			{
-				for (int x = 0; x < size; x++)
+				for (int x = 0; x < map.GetLength(1); x++)
 				{
 					map[x, y] = GetSpaceValue(dungeonPointer, x, y);
 				}
 
 			}
-
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public int[,] GetMap()
 		{
 			return map;
 		}
 
-    }
+	}
+
+	// subclass 1
+	public class RandomWalkRoom : DungeonGenerator
+	{
+		private readonly IntPtr dungeonPointer;
+
+		public RandomWalkRoom(int width = 50, int height = 50, int startX = 25, int startY = 25,
+			int iterations = 50, int walkLength = 15, bool startRandomly = false) : base(width, height)
+		{
+			dungeonPointer = CreateRandomWalkRoom(width, height, startX, startY, iterations, walkLength, startRandomly);			
+			BuildMap(dungeonPointer);
+
+		}
+
+	}
+
+	// subclass 2
+	public class CorridorFirstDungeon : DungeonGenerator
+	{
+		private readonly IntPtr dungeonPointer;
+
+		public CorridorFirstDungeon(int dungeonWidth, int dungeonHeight, int startX, int staryY, int corridorLength, int totalCorridors, float roomPercent,
+									   int roomWalkIterations = 15, int roomWalkLength = 10, bool startRandomlyEachWalk = false)
+									 : base(dungeonWidth, dungeonHeight)
+		{
+			dungeonPointer = CreateCorridorFirstDungeon(dungeonWidth, dungeonHeight, startX, staryY, corridorLength, totalCorridors, roomPercent,
+								roomWalkIterations, roomWalkLength, startRandomlyEachWalk);
+			BuildMap(dungeonPointer);
+		}
+	}
+
 }
