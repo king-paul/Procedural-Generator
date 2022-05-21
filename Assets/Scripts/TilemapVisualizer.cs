@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+using ProceduralGeneration;
+
 public class TilemapVisualizer : MonoBehaviour
 {
     [SerializeField]
@@ -17,6 +19,7 @@ public class TilemapVisualizer : MonoBehaviour
                      wallDiagonalCornerUpRight, wallDiagonalCornerUpLeft;
 
     // Renders the floor tiles on the screen
+    /*
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
     {
         PaintTiles(floorPositions, floorTilemap, floorTile);
@@ -25,42 +28,56 @@ public class TilemapVisualizer : MonoBehaviour
     public void PaintWallTiles(IEnumerable<Vector2Int> wallPositions)
     {
         PaintTiles(wallPositions, wallTilemap, wallFull);
-    }
+    }*/
 
-    public void PaintSingleFloorTile(Vector2Int position)
+    // Paint a single floor tile at a specified position
+    public void PaintFloor(Vector2Int position)
     {
         PaintSingleTile(floorTilemap, floorTile, position);
     }
 
-    // render a wall tile from the tilemap at specified position
-    internal void PaintSingleBasicWall(Vector2Int position, string binaryType)
+    // iterates through all tiles and paint each one on the screen
+    internal void PaintTiles(List<DungeonTile> tiles)
     {
-        //Debug.Log(position + " type: " + binaryType);
+        foreach(DungeonTile tile in tiles)
+        {
+            if (tile.Type == TileType.Floor)
+                PaintFloor(tile.Position);
+            else
+                PaintWall(tile.Position, tile.Type);
+        }
+            
+    }
 
-        int typeAsInt = Convert.ToInt32(binaryType, 2); // converts string of binary numbers into an integer
+    // renders the correct wall tile from the tilemap based on the tile type
+    internal void PaintWall(Vector2Int position, TileType type)
+    {
         TileBase tile = null; // the type of tile to be painted
 
-        // checks if the matching binary number is in any of the lists in the wall type helper and
-        // if it is, sets the tile to that wall type
-        if (WallTypesHelper.wallTop.Contains(typeAsInt))
+        switch(type)
         {
-            tile = wallTop;
-        }
-        else if (WallTypesHelper.wallSideRight.Contains(typeAsInt))
-        {
-            tile = wallSideRight;
-        }
-        else if (WallTypesHelper.wallSideLeft.Contains(typeAsInt))
-        {
-            tile = wallSideLeft;
-        }
-        else if (WallTypesHelper.wallBottom.Contains(typeAsInt))
-        {
-            tile = wallBottom;
-        }
-        else if (WallTypesHelper.wallFull.Contains(typeAsInt))
-        {
-            tile = wallFull;
+            case TileType.Top: tile = wallTop;
+                break;
+            case TileType.SideLeft: tile = wallSideLeft;
+                break;
+            case TileType.SideRight: tile = wallSideRight;
+                break;
+            case TileType.Bottom: tile = wallBottom;
+                break;                        
+            case TileType.InnerCornerDownLeft: tile = wallInnerCornerDownLeft;
+                break;
+            case TileType.InnerCornerDownRight: tile = wallInnerCornerDownRight;
+                break;
+            case TileType.DiagonalCornerDownLeft: tile = wallDiagonalCornerDownLeft;
+                break;
+            case TileType.DiagonalCornerDownRight: tile = wallDiagonalCornerDownRight;
+                break;
+            case TileType.DiagonalCornerUpLeft: tile = wallDiagonalCornerUpLeft;
+                break;
+            case TileType.DiagonalCornerUpRight: tile = wallDiagonalCornerUpRight;
+                break;
+            case TileType.WallFull: tile = wallFull;
+                break;
         }
 
         // if the tile has been assigned paint it
@@ -68,6 +85,7 @@ public class TilemapVisualizer : MonoBehaviour
             PaintSingleTile(wallTilemap, tile, position);
     }
 
+    /*
     // Renders all tiles in a given list of positions
     private void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tilemap, TileBase tile)
     {
@@ -75,7 +93,7 @@ public class TilemapVisualizer : MonoBehaviour
         {
             PaintSingleTile(tilemap, tile, position);
         }
-    }
+    }*/
 
     // Adds a single tile to the tilemap using specified parameters
     private void PaintSingleTile(Tilemap tilemap, TileBase tile, Vector2Int position)
@@ -91,6 +109,7 @@ public class TilemapVisualizer : MonoBehaviour
         wallTilemap.ClearAllTiles();
     }
 
+    /*
     internal void PaintSingleCornerWall(Vector2Int position, string binaryType)
     {
         int typeAsInt = Convert.ToInt32(binaryType, 2); // converts string of binary numbers into an integer
@@ -131,10 +150,9 @@ public class TilemapVisualizer : MonoBehaviour
             tile = wallBottom;
         }
 
-
         // if the tile has been assigned paint it
         if (tile != null)
             PaintSingleTile(wallTilemap, tile, position);
 
-    }
+    }*/
 }

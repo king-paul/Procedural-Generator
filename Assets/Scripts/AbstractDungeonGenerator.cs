@@ -4,8 +4,25 @@ using UnityEngine;
 
 using ProceduralGeneration;
 
+public struct DungeonTile
+{
+    public DungeonTile(int x, int y, TileType type)
+    {
+        position = new Vector2Int(x, y);
+        this.type = type;
+    }
+    
+    // properties
+    public Vector2Int Position { get => position; }
+    public TileType Type { get => type; }
+
+    Vector2Int position;
+    TileType type;
+}
+
 public abstract class AbstractDungeonGenerator : MonoBehaviour
 {
+
     [SerializeField]
     protected TilemapVisualizer tilemapVisualizer = null;
     [SerializeField]
@@ -42,35 +59,34 @@ public abstract class AbstractDungeonGenerator : MonoBehaviour
         else
             wallPositions = new HashSet<Vector2Int>();
 
-        RunProceduralGeneration();
+        Generate();
     }
 
-    public abstract void RunProceduralGeneration();
+    public abstract void Generate();
 
-    protected void BuildTileData()
+    protected List<DungeonTile> GetTileData()
     {
-        int[,] mapValues = dungeon.GetMap();
+        TileType[,] mapValues = dungeon.GetMap();
+        List<DungeonTile> tiles = new List<DungeonTile>();
 
         for (int y = 0; y < mapValues.GetLength(0); y++)
         {
             for (int x = 0; x < mapValues.GetLength(1); x++)
             {
-                if (mapValues[x, y] == 1)
-                    floorPositions.Add(new Vector2Int(x, y));
-                else if (mapValues[x, y] == -1)
-                    wallPositions.Add(new Vector2Int(x, y));
+                if (mapValues[y, x] != TileType.Empty)
+                     tiles.Add(new DungeonTile(x, y, mapValues[y, x]));
             }
         }
 
+        return tiles;
     }
 
     public void GenerateTiles()
     {
-        BuildTileData(); // get the tile positions
+        List<DungeonTile> tiles = GetTileData(); // get the tile positions and types
 
         tilemapVisualizer.Clear();
-        tilemapVisualizer.PaintFloorTiles(floorPositions); // adds floor tiles to the tile map
-        tilemapVisualizer.PaintWallTiles(wallPositions);
+        tilemapVisualizer.PaintTiles(tiles);
     }
 
 }

@@ -9,20 +9,15 @@ public class GameManager : MonoBehaviour
 {
     //public AbstractDungeonGenerator generator;
     public TilemapVisualizer tilemapVisualizer;
-
-    private HashSet<Vector2Int> floorPositions;
-    private HashSet<Vector2Int> wallPositions;
+    AbstractDungeonGenerator generator;
 
     // Start is called before the first frame update
     void Start()
-    {
-        floorPositions = new HashSet<Vector2Int>();
-        wallPositions = new HashSet<Vector2Int>();
-
-        /*
-        DungeonGenerator dungeon = new RandomWalkRoom();
+    {        
+        //dungeon = new SimpleRandomWalkDungeonGenerator();
             //new CorridorFirstDungeon(100, 100, 50, 50, 10, 15, 0.5f);
 
+        /*
         var mapData = dungeon.GetMap();
 
         string map = GetMapString(mapData);
@@ -55,38 +50,8 @@ public class GameManager : MonoBehaviour
 
     public void BuildRoom()
     {
-        //generator.RunProceduralGeneration();
-
         // clear data from previous generation
-        tilemapVisualizer.Clear();
-        floorPositions.Clear();
-        wallPositions.Clear();
-
-        DungeonGenerator dungeon = new RandomWalkRoom();
-        BuildTileData(dungeon);
-      
-        tilemapVisualizer.PaintFloorTiles(floorPositions); // adds floor tiles to the tile map
-        tilemapVisualizer.PaintWallTiles(wallPositions);
-
-        //var builder = new SimpleRandomWalkDungeonGenerator(dungeon);
-
-        //builder.GenerateTiles();
-    }
-    private void BuildTileData(DungeonGenerator dungeon)
-    {
-        int[,] mapValues = dungeon.GetMap();
-
-        for (int y = 0; y < mapValues.GetLength(0); y++)
-        {
-            for (int x = 0; x < mapValues.GetLength(1); x++)
-            {
-                if (mapValues[x, y] == 1)
-                    floorPositions.Add(new Vector2Int(x, y));
-                else if (mapValues[x, y] == -1)
-                    wallPositions.Add(new Vector2Int(x, y));
-            }
-        }
-
+        generator.Generate();
     }
 
 }

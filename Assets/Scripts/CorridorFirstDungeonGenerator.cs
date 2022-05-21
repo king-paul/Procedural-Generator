@@ -11,15 +11,9 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField]
     [Range(0.1f, 1)]
     public float roomPercent = 0.8f;
-    
-    /*
-    public CorridorFirstDungeonGenerator(DungeonGenerator dungeon) : base(dungeon)
-    {
-
-    }*/
 
     // Generates the dungeon. Overrides method from suberclass
-    public override void RunProceduralGeneration()
+    public override void Generate()
     {
         dungeon = new CorridorFirstDungeon(dungeonWidth, dungeonHeight, startPosition.x, startPosition.y, // basic parameters
                         corridorLength, corridorCount, roomPercent, // corridor paramaeters
