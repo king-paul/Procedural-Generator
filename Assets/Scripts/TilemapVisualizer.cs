@@ -18,17 +18,10 @@ public class TilemapVisualizer : MonoBehaviour
                      wallDiagonalCornerDownRight, wallDiagonalCornerDownLeft,
                      wallDiagonalCornerUpRight, wallDiagonalCornerUpLeft;
 
-    // Renders the floor tiles on the screen
-    /*
-    public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
+    public void Start()
     {
-        PaintTiles(floorPositions, floorTilemap, floorTile);
+        Clear();
     }
-    
-    public void PaintWallTiles(IEnumerable<Vector2Int> wallPositions)
-    {
-        PaintTiles(wallPositions, wallTilemap, wallFull);
-    }*/
 
     // Paint a single floor tile at a specified position
     public void PaintFloor(Vector2Int position)
