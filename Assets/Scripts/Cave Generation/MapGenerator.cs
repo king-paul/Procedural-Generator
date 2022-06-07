@@ -46,17 +46,31 @@ public class MapGenerator : MonoBehaviour
 
 	// Start is called before the first frame update
 	void Start()
-    {
+	{
 		meshGenerator = GetComponent<MeshGenerator>();
+		GenerateMap();
+	}
+
+    // Update is called once per frame
+    void Update()
+    {
+		if (Input.GetMouseButtonDown(0))
+		{
+			GenerateMap();
+		}
+	}
+
+	void GenerateMap()
+    {
 		cave = new CaveGenerator(width, height, randomFillPercent, smoothingIterations, borderSize, minimumWallSize,
-								 minimumRoomSize, passageWidth, false, useRandomSeed, seed, false, tileSize);
+								minimumRoomSize, passageWidth, false, useRandomSeed, seed, false, tileSize);
 
 		//cave.MarchingSquares;
 		/*
 		Vector3[] vertices = new Vector3[cave.TotalBaseVertices];
 
 		for(int i = 0; i < vertices.Length; i++)
-        {
+		{
 			vertices[i].x = cave.BaseVerticesX[i];
 			vertices[i].y = cave.BaseVerticesY[i];
 			vertices[i].z = cave.BaseVerticesZ[i];
@@ -70,17 +84,8 @@ public class MapGenerator : MonoBehaviour
 		caveMesh.mesh = mesh;*/
 
 		//meshGenerator.GenerateMesh(cave.Map, tileSize);
-		meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize);
-
-		//PrintCaveToConsole();
-		//PrintMarchingSquareToConsole();
+		meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize);		
 	}
-
-    // Update is called once per frame
-    void Update()
-    {		
-        
-    }
 
 	void PrintCaveToConsole()
     {
