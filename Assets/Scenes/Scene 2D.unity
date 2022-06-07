@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 508107921}
   - component: {fileID: 508107920}
-  - component: {fileID: 508107922}
+  - component: {fileID: 508107923}
   m_Layer: 0
   m_Name: Map Generator
   m_TagString: Untagged
@@ -181,7 +181,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &508107922
+--- !u!114 &508107923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,14 +190,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 508107919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08034bd44b42cd842870b8328c2e6725, type: 3}
+  m_Script: {fileID: 11500000, guid: 92ace71ecb4ecee4fbfe7bb1338e7229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   walls: {fileID: 1430217242}
   cave: {fileID: 1557418338}
-  wallHeight: 5
   is2D: 1
-  tileAmount: 50
+  wallHeight: 5
+  textureTiling: 50
 --- !u!1 &575592450
 GameObject:
   m_ObjectHideFlags: 0

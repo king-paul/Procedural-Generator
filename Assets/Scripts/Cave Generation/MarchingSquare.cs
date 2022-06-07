@@ -102,123 +102,123 @@ public class Square
             configuration += 1; // turns on the fourth bit
     }
 
-    public Square(Vector2 position, float squareSize, byte configuration)
+    public Square(Vector3 position, float squareSize, byte configuration)
     {
         this.configuration = configuration;
 
         switch(configuration)
         {
             case 0: // if no points are selected then we don't have a mesh
-                topLeft = new ControlNode(0, position, squareSize, false);
-                topRight = new ControlNode(0, position, squareSize, false);
-                bottomLeft = new ControlNode(0, position, squareSize, false);
-                bottomRight = new ControlNode(0, position, squareSize, false);
+                topLeft = new ControlNode(1, position, squareSize, false);
+                topRight = new ControlNode(2, position, squareSize, false);
+                bottomLeft = new ControlNode(3, position, squareSize, false);
+                bottomRight = new ControlNode(4, position, squareSize, false);
             break;
             
             case 1: // 0001
-                topLeft = new ControlNode(0, position, squareSize, false);
-                topRight = new ControlNode(0, position, squareSize, false);
-                bottomLeft = new ControlNode(0, position, squareSize, false);
-                bottomRight = new ControlNode(0, position, squareSize, true);
+                topLeft = new ControlNode(1, position, squareSize, false);
+                topRight = new ControlNode(2, position, squareSize, false);
+                bottomLeft = new ControlNode(3, position, squareSize, false);
+                bottomRight = new ControlNode(4, position, squareSize, true);
             break;
 
             case 2: // 0010
-                topLeft = new ControlNode(0, position, squareSize, false);
-                topRight = new ControlNode(0, position, squareSize, false);
-                bottomLeft = new ControlNode(0, position, squareSize, true);
-                bottomRight = new ControlNode(0, position, squareSize, false);
+                topLeft = new ControlNode(1, position, squareSize, false);
+                topRight = new ControlNode(2, position, squareSize, false);
+                bottomLeft  = new ControlNode(3, position, squareSize, true);
+                bottomRight = new ControlNode(4, position, squareSize, false);
             break;
 
             case 3: // 0011
-                topLeft = new ControlNode(0, position, squareSize, false);
-                topRight = new ControlNode(0, position, squareSize, false);
-                bottomLeft = new ControlNode(0, position, squareSize, true);
-                bottomRight = new ControlNode(0, position, squareSize, true);
+                topLeft = new ControlNode(1, position, squareSize, false);
+                topRight = new ControlNode(2, position, squareSize, false);
+                bottomLeft  = new ControlNode(3, position, squareSize, true);
+                bottomRight = new ControlNode(4, position, squareSize, true);
                 break;
 
             case 4: // 0100
-                topLeft = new ControlNode(0, position, squareSize, false);
-                topRight = new ControlNode(0, position, squareSize, true);
-                bottomLeft = new ControlNode(0, position, squareSize, false);
-                bottomRight = new ControlNode(0, position, squareSize, false);
+                topLeft = new ControlNode(1, position, squareSize, false);
+                topRight = new ControlNode(2, position, squareSize, true);
+                bottomLeft  = new ControlNode(3, position, squareSize, false);
+                bottomRight = new ControlNode(4, position, squareSize, false);
                 break;
 
             case 5: // 0101
-                topLeft = new ControlNode(0, position, squareSize, false);
-                topRight = new ControlNode(0, position, squareSize, true);
-                bottomLeft = new ControlNode(0, position, squareSize, false);
-                bottomRight = new ControlNode(0, position, squareSize, true);
+                topLeft = new ControlNode(1, position, squareSize, false);
+                topRight = new ControlNode(2, position, squareSize, true);
+                bottomLeft  = new ControlNode(3, position, squareSize, false);
+                bottomRight = new ControlNode(4, position, squareSize, true);
                 break;
 
             case 6: // 0110
-                topLeft = new ControlNode(0, position, squareSize, false);
-                topRight = new ControlNode(0, position, squareSize, true);
-                bottomLeft = new ControlNode(0, position, squareSize, true);
-                bottomRight = new ControlNode(0, position, squareSize, false);
+                topLeft = new ControlNode(1, position, squareSize, false);
+                topRight = new ControlNode(2, position, squareSize, true);
+                bottomLeft  = new ControlNode(3, position, squareSize, true);
+                bottomRight = new ControlNode(4, position, squareSize, false);
                 break;
             
             case 7: // 0111
-                topLeft = new ControlNode(0, position, squareSize, false);
-                topRight = new ControlNode(0, position, squareSize, true);
-                bottomLeft = new ControlNode(0, position, squareSize, true);
-                bottomRight = new ControlNode(0, position, squareSize, true);
+                topLeft = new ControlNode(1, position, squareSize, false);
+                topRight = new ControlNode(2, position, squareSize, true);
+                bottomLeft  = new ControlNode(3, position, squareSize, true);
+                bottomRight = new ControlNode(4, position, squareSize, true);
                 break;
 
             case 8: // 1000
-                topLeft = new ControlNode(0, position, squareSize, true);
-                topRight = new ControlNode(0, position, squareSize, false);
-                bottomLeft = new ControlNode(0, position, squareSize, false);
-                bottomRight = new ControlNode(0, position, squareSize, false);
+                topLeft = new ControlNode(1, position, squareSize, true);
+                topRight = new ControlNode(2, position, squareSize, false);
+                bottomLeft  = new ControlNode(3, position, squareSize, false);
+                bottomRight = new ControlNode(4, position, squareSize, false);
                 break;          
             
             case 9: // 1001
-                topLeft = new ControlNode(0, position, squareSize, true);
-                topRight = new ControlNode(0, position, squareSize, false);
-                bottomLeft = new ControlNode(0, position, squareSize, false);
-                bottomRight = new ControlNode(0, position, squareSize, true);
+                topLeft = new ControlNode(1, position, squareSize, true);
+                topRight = new ControlNode(2, position, squareSize, false);
+                bottomLeft  = new ControlNode(3, position, squareSize, false);
+                bottomRight = new ControlNode(4, position, squareSize, true);
                 break;
 
             case 10: // 1010
-                topLeft = new ControlNode(0, position, squareSize, true);
-                topRight = new ControlNode(0, position, squareSize, false);
-                bottomLeft = new ControlNode(0, position, squareSize, true);
-                bottomRight = new ControlNode(0, position, squareSize, false);
+                topLeft = new ControlNode(1, position, squareSize, true);
+                topRight = new ControlNode(2, position, squareSize, false);
+                bottomLeft  = new ControlNode(3, position, squareSize, true);
+                bottomRight = new ControlNode(4, position, squareSize, false);
                 break;
 
             case 11: // 1011
-                topLeft = new ControlNode(0, position, squareSize, true);
-                topRight = new ControlNode(0, position, squareSize, false);
-                bottomLeft = new ControlNode(0, position, squareSize, true);
-                bottomRight = new ControlNode(0, position, squareSize, true);
+                topLeft = new ControlNode(1, position, squareSize, true);
+                topRight = new ControlNode(2, position, squareSize, false);
+                bottomLeft  = new ControlNode(3, position, squareSize, true);
+                bottomRight = new ControlNode(4, position, squareSize, true);
                 break;
 
             case 12: // 1100
-                topLeft = new ControlNode(0, position, squareSize, true);
-                topRight = new ControlNode(0, position, squareSize, true);
-                bottomLeft = new ControlNode(0, position, squareSize, false);
-                bottomRight = new ControlNode(0, position, squareSize, false);
+                topLeft = new ControlNode(1, position, squareSize, true);
+                topRight = new ControlNode(2, position, squareSize, true);
+                bottomLeft  = new ControlNode(3, position, squareSize, false);
+                bottomRight = new ControlNode(4, position, squareSize, false);
                 break;
 
             case 13: // 1101
-                topLeft = new ControlNode(0, position, squareSize, true);
-                topRight = new ControlNode(0, position, squareSize, true);
-                bottomLeft = new ControlNode(0, position, squareSize, false);
-                bottomRight = new ControlNode(0, position, squareSize, true);
+                topLeft = new ControlNode(1, position, squareSize, true);
+                topRight = new ControlNode(2, position, squareSize, true);
+                bottomLeft  = new ControlNode(3, position, squareSize, false);
+                bottomRight = new ControlNode(4, position, squareSize, true);
                 break;
 
             case 14: // 1110
-                topLeft = new ControlNode(0, position, squareSize, true);
-                topRight = new ControlNode(0, position, squareSize, true);
-                bottomLeft = new ControlNode(0, position, squareSize, true);
-                bottomRight = new ControlNode(0, position, squareSize, false);
+                topLeft = new ControlNode(1, position, squareSize, true);
+                topRight = new ControlNode(2, position, squareSize, true);
+                bottomLeft  = new ControlNode(3, position, squareSize, true);
+                bottomRight = new ControlNode(4, position, squareSize, false);
                 break;
 
             // The entire square is a wall
             case 15: // 1111
-                topLeft = new ControlNode(0, position, squareSize, true);
-                topRight = new ControlNode(0, position, squareSize, true);
-                bottomLeft = new ControlNode(0, position, squareSize, true);
-                bottomRight = new ControlNode(0, position, squareSize, true);
+                topLeft = new ControlNode(1, position, squareSize, true);
+                topRight = new ControlNode(2, position, squareSize, true);
+                bottomLeft  = new ControlNode(3, position, squareSize, true);
+                bottomRight = new ControlNode(4, position, squareSize, true);
                 break;
         }
 
@@ -280,19 +280,19 @@ public class ControlNode : Node
         switch(number)
         {
             case 1: // top left
-                position = new Vector3(squarePos.x - squareSize / 2, 0, squarePos.y + squareSize / 2);
+                position = new Vector3(squarePos.x - squareSize / 2, 0, squarePos.z + squareSize / 2);
                 break;
 
             case 2: // top right
-                position = new Vector3(squarePos.x + squareSize / 2, 0, squarePos.y + squareSize / 2);
+                position = new Vector3(squarePos.x + squareSize / 2, 0, squarePos.z + squareSize / 2);
                 break;
 
             case 3: // bottom left
-                position = new Vector3(squarePos.x - squareSize / 2, 0, squarePos.y - squareSize / 2);
+                position = new Vector3(squarePos.x - squareSize / 2, 0, squarePos.z - squareSize / 2);
                 break;
 
             case 4: // bottom right
-                position = new Vector3(squarePos.x + squareSize / 2, 0, squarePos.y - squareSize / 2);
+                position = new Vector3(squarePos.x + squareSize / 2, 0, squarePos.z - squareSize / 2);
                 break;
 
             default: position = squarePos;
