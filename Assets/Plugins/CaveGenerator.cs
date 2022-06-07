@@ -15,7 +15,7 @@ namespace ProceduralGeneration
         /// <summary>
         /// Returnes a grid of marching square configurations
         /// </summary>
-        public int[,] MarchingSquares { get; }
+        public byte[,] MarchingSquares { get; }
         public int[] BaseTriangles { get; }
         public int[] WallTriangles { get; }
 
@@ -81,7 +81,7 @@ namespace ProceduralGeneration
                              passageWidth, forceAccessToMain, useRandomSeed, seed, generateMesh, tileSize, wallHeight);
 
             Map = new bool[height + (borderSize), width + (borderSize)];
-            MarchingSquares = new int[height + (borderSize), width + (borderSize)];
+            MarchingSquares = new byte[height + (borderSize), width + (borderSize)];
 
             //IntPtr mesh = GenerateMesh(cave, 1, 5);
 
@@ -99,7 +99,7 @@ namespace ProceduralGeneration
             {
                 for (int x = 0; x < MarchingSquares.GetLength(1); x++)
                 {
-                    MarchingSquares[y, x] = GetMarchingSquareValue(x, y, cave);
+                    MarchingSquares[y, x] = (byte) GetMarchingSquareValue(x, y, cave);
                 }
             }
 

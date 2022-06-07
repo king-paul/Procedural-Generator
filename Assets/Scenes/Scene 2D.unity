@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 508107921}
   - component: {fileID: 508107920}
-  - component: {fileID: 508107923}
+  - component: {fileID: 508107922}
   m_Layer: 0
   m_Name: Map Generator
   m_TagString: Untagged
@@ -150,19 +150,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 508107919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e2629c3fe0bbbe40b805438b1ece8dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ad0d256f462acb46a805f5cc3531272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   width: 128
   height: 72
-  seed: Sebastian
+  seed: 0
   useRandomSeed: 0
   randomFillPercent: 53
   smoothingIterations: 5
   borderSize: 1
-  wallThresholdSize: 50
-  roomThresholdSize: 50
+  minimumWallSize: 50
+  minimumRoomSize: 50
   passageWidth: 1
+  tileSize: 1
 --- !u!4 &508107921
 Transform:
   m_ObjectHideFlags: 0
@@ -178,9 +179,9 @@ Transform:
   - {fileID: 1557418340}
   - {fileID: 575592451}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &508107923
+--- !u!114 &508107922
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,14 +190,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 508107919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9906286f639bc54180e442120cbba6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 08034bd44b42cd842870b8328c2e6725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   walls: {fileID: 1430217242}
   cave: {fileID: 1557418338}
   wallHeight: 5
   is2D: 1
-  tileAmount: 25
+  tileAmount: 50
 --- !u!1 &575592450
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,11 +464,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.51, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2104106165}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1430217241
 GameObject:
@@ -651,7 +652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2104106160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,8 +771,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 963194228}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
