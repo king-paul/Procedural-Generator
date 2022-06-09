@@ -32,6 +32,8 @@ namespace ProceduralGeneration
         public int TotalWallTriangles { get; }
         public int TotalWallVertices { get; }
 
+        public int Seed { get; }
+
         // External Functions
         [DllImport("Procedural Generation Library.dll")]
         protected static extern IntPtr GenerateCave(int width, int height, int fillPercent, int smoothingIterations, int borderSize,
@@ -71,10 +73,13 @@ namespace ProceduralGeneration
         [DllImport("Procedural Generation Library.dll")]
         protected static extern IntPtr GetWallVerticies(IntPtr cavePointer, char component);
 
+        [DllImport("Procedural Generation Library.dll")]
+        protected static extern int GetSeedValue(IntPtr cavePointer);
+
         // Constructor
         public CaveGenerator(int width = 128, int height = 72, int fillPercent = 53, int smoothingIterations = 5, int borderSize = 3,
                         int wallThresholdSize = 50, int roomThresholdSize = 50, int passageWidth = 1, bool forceAccessToMain = true,
-                        bool useRandomSeed = false, int seed = 0, bool generateMesh = true, float tileSize = 1, float wallHeight = 5)
+                        bool useRandomSeed = true, int seed = 0, bool generateMesh = false, float tileSize = 1, float wallHeight = 5)
         {
             IntPtr cave =
                 GenerateCave(width, height, fillPercent, smoothingIterations, borderSize, wallThresholdSize, roomThresholdSize,
@@ -82,6 +87,8 @@ namespace ProceduralGeneration
 
             Map = new bool[height + (borderSize), width + (borderSize)];
             MarchingSquares = new byte[height + (borderSize), width + (borderSize)];
+
+            Seed = GetSeedValue(cave);
 
             //IntPtr mesh = GenerateMesh(cave, 1, 5);
 
@@ -114,7 +121,7 @@ namespace ProceduralGeneration
                 // Get the base triangle indices
                 IntPtr trianglesPointer = GetBaseTriangles(cave);
                 BaseTriangles = new int[TotalBaseTriangles];
-                Marshal.Copy(trianglesPointer, BaseTriangles, 0, TotalBaseTriangles);             
+                Marshal.Copy(trianglesPointer, BaseTriangles, 0, TotalBaseTriangles);
 
                 // X component
                 IntPtr verticesPointer = GetBaseVerticies(cave, 'x');
@@ -138,7 +145,7 @@ namespace ProceduralGeneration
                 TotalWallVertices = GetTotalWallVertices(cave);
 
                 // Get the wall triangle indices
-                trianglesPointer = GetWallTriangles(cave);                
+                trianglesPointer = GetWallTriangles(cave);
                 WallTriangles = new int[TotalWallTriangles];
                 Marshal.Copy(trianglesPointer, WallTriangles, 0, TotalWallTriangles);
 

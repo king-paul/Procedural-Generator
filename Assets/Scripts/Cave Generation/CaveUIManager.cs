@@ -44,8 +44,7 @@ public class CaveUIManager : MonoBehaviour
     private int minimumRoomSize = 50;
     private int passageWidth = 1;
     private int tileSize = 1;
-
-    //
+    
     int wallHeight = 5;
 
     public void SetWidth(float value)
@@ -107,16 +106,35 @@ public class CaveUIManager : MonoBehaviour
         useRandomSeed = random;
 
         if (random)
+        {
             seedInput.enabled = false;
+            seedInput.interactable = false;
+        }
         else
+        {
+            seedInput.interactable = true;
             seedInput.enabled = true;
+        }
     }
 
     public void GenerateCave()
     {
         var cave = new CaveGenerator(width, height, randomFillPercent, smoothingIterations, borderSize,
             minimumWallSize, minimumRoomSize, passageWidth, false, useRandomSeed, seed, false);
-            
+
+        if (useRandomSeed)
+        {
+            seed = cave.Seed;
+            seedInput.text = seed.ToString();
+        }
+
+        meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize);
+    }
+
+    public void Regenerate()
+    {
+        var cave = new CaveGenerator(width, height, randomFillPercent, smoothingIterations, borderSize,
+            minimumWallSize, minimumRoomSize, passageWidth, false, false, seed, false);
 
         meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize);
     }
@@ -147,6 +165,7 @@ public class CaveUIManager : MonoBehaviour
         seedInput.text = seed.ToString();
         useRandomToggle.isOn = useRandomSeed;
 
+        GenerateCave();
     }
 
 }
