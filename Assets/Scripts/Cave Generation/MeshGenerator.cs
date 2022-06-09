@@ -81,7 +81,7 @@ public class MeshGenerator : MonoBehaviour
         for (int i = 0; i < uvs.Length; i++)
         {
             // x percent = map width / 2
-            float percentX = Mathf.InverseLerp(-marchingSquares.GetLength(0) / 2 * squareSize, marchingSquares.GetLength(0) / 2 * squareSize, vertices[i].x) * textureTiling;
+            float percentX = Mathf.InverseLerp(-marchingSquares.GetLength(1) / 2 * squareSize, marchingSquares.GetLength(1) / 2 * squareSize, vertices[i].x) * textureTiling;
             // y percent = map height / 2
             float percentY = Mathf.InverseLerp(-marchingSquares.GetLength(0) / 2 * squareSize, marchingSquares.GetLength(0) / 2 * squareSize, vertices[i].z) * textureTiling;
             uvs[i] = new Vector2(percentX, percentY);

@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 824565650892172067}
   - component: {fileID: 824565650892172064}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Fill Percent Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,16 +237,16 @@ MonoBehaviour:
   m_HandleRect: {fileID: 824565650974944739}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
+  m_MaxValue: 100
+  m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: UpdateRoomFillLabel
-        m_Mode: 1
+      - m_Target: {fileID: 6865712026630763806}
+        m_TargetAssemblyTypeName: CaveUIManager, Assembly-CSharp
+        m_MethodName: SetFillPercent
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -629,6 +629,7 @@ GameObject:
   - component: {fileID: 824565651268394154}
   - component: {fileID: 824565651268394152}
   - component: {fileID: 824565651268394155}
+  - component: {fileID: 6865712026630763806}
   m_Layer: 5
   m_Name: Cave Generator Panel
   m_TagString: Untagged
@@ -643,7 +644,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824565651268394157}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8667389, y: 0.8667389, z: 0.8667389}
   m_Children:
@@ -698,6 +699,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6865712026630763806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824565651268394157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4de0b6133623be4db53ae18d5ce4e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshGenerator: {fileID: 0}
+  widthSlider: {fileID: 1852627156724247485}
+  heightSLider: {fileID: 1852627155471944164}
+  fillPercentSlider: {fileID: 824565650892172064}
+  smoothingSlider: {fileID: 1852627155648728667}
+  caveBorderSizeSlider: {fileID: 1852627157112059139}
+  minWallSizeSlider: {fileID: 1852627157308140580}
+  minRooomSizeSlider: {fileID: 1852627156451224025}
+  passageWidthSlider: {fileID: 1852627157129145140}
+  widthValue: {fileID: 1852627156174031213}
+  heightValue: {fileID: 1852627155704246162}
+  fillPercentValue: {fileID: 824565652028285201}
+  smoothingValue: {fileID: 1852627155308698799}
+  caveBordersValue: {fileID: 1852627157215282762}
+  wallSizeValue: {fileID: 1852627156829970914}
+  roomSizeValue: {fileID: 1852627155891298981}
+  passageWidthValue: {fileID: 1852627156727671608}
+  seedInput: {fileID: 1852627157165392392}
+  useRandomToggle: {fileID: 1852627156409115476}
 --- !u!1 &824565651296680817
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,7 +764,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -37.2437, y: -49.8}
+  m_AnchoredPosition: {x: -35.671673, y: -49.8}
   m_SizeDelta: {x: 54.1506, y: 18.228}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &824565651296680828
@@ -1000,7 +1032,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -31.914, y: -92.1}
+  m_AnchoredPosition: {x: -30.341978, y: -92.1}
   m_SizeDelta: {x: 63.828, y: 18.228}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &824565651679960744
@@ -1223,9 +1255,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: GenerateDungeonFromGUI
+      - m_Target: {fileID: 6865712026630763806}
+        m_TargetAssemblyTypeName: CaveUIManager, Assembly-CSharp
+        m_MethodName: GenerateCave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1283,7 +1315,7 @@ GameObject:
   - component: {fileID: 824565652028285214}
   - component: {fileID: 824565652028285201}
   m_Layer: 5
-  m_Name: Value
+  m_Name: Fill Percent Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1305,7 +1337,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 87, y: 113.6}
+  m_AnchoredPosition: {x: 88.6, y: 113.6}
   m_SizeDelta: {x: 23.7028, y: 17.3484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &824565652028285214
@@ -1417,7 +1449,7 @@ GameObject:
   - component: {fileID: 1852627155308698798}
   - component: {fileID: 1852627155308698799}
   m_Layer: 5
-  m_Name: Value (1)
+  m_Name: Smoothing Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1439,7 +1471,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 87.4, y: 88.2}
+  m_AnchoredPosition: {x: 88.8, y: 87.49998}
   m_SizeDelta: {x: 23.7028, y: 17.3484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1852627155308698798
@@ -1985,7 +2017,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 42.228, y: -111.8}
+  m_AnchoredPosition: {x: 43.8, y: -111.8}
   m_SizeDelta: {x: 212.91, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1852627155471944164
@@ -2032,17 +2064,17 @@ MonoBehaviour:
   m_FillRect: {fileID: 1852627155332322506}
   m_HandleRect: {fileID: 1852627156442299639}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
+  m_MinValue: 1
+  m_MaxValue: 500
+  m_WholeNumbers: 1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: UpdateRoomFillLabel
-        m_Mode: 1
+      - m_Target: {fileID: 6865712026630763806}
+        m_TargetAssemblyTypeName: CaveUIManager, Assembly-CSharp
+        m_MethodName: SetHeight
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2349,7 +2381,7 @@ GameObject:
   - component: {fileID: 1852627155648728664}
   - component: {fileID: 1852627155648728667}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Smoothing Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2421,17 +2453,17 @@ MonoBehaviour:
   m_FillRect: {fileID: 1852627157324073633}
   m_HandleRect: {fileID: 1852627157199792315}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
+  m_MinValue: 1
+  m_MaxValue: 5
+  m_WholeNumbers: 1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: UpdateRoomFillLabel
-        m_Mode: 1
+      - m_Target: {fileID: 6865712026630763806}
+        m_TargetAssemblyTypeName: CaveUIManager, Assembly-CSharp
+        m_MethodName: SetSmoothing
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2625,7 +2657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 167.59998, y: -112.4}
+  m_AnchoredPosition: {x: 169.172, y: -113.5}
   m_SizeDelta: {x: 23.7028, y: 17.3484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1852627155704246165
@@ -2719,7 +2751,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -9.058379, w: 0}
+  m_margin: {x: 0, y: 0, z: -9.058379, w: 3.8623118}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3003,7 +3035,7 @@ GameObject:
   - component: {fileID: 1852627155864115578}
   - component: {fileID: 1852627155864115579}
   m_Layer: 5
-  m_Name: Label (1)
+  m_Name: 'Label '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3137,7 +3169,7 @@ GameObject:
   - component: {fileID: 1852627155891298980}
   - component: {fileID: 1852627155891298981}
   m_Layer: 5
-  m_Name: Value (1)
+  m_Name: Min Room Size Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3159,7 +3191,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 86, y: 26.5}
+  m_AnchoredPosition: {x: 89, y: 24.8}
   m_SizeDelta: {x: 23.7028, y: 17.3484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1852627155891298980
@@ -3253,7 +3285,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -9.058379, w: 0}
+  m_margin: {x: 0, y: 0, z: -9.058379, w: 3.132152}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3403,8 +3435,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -77, y: 84.5}
-  m_SizeDelta: {x: 127.2762, y: 20.409}
+  m_AnchoredPosition: {x: -59.99548, y: 84.5}
+  m_SizeDelta: {x: 161.2852, y: 20.409}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1852627155959546423
 CanvasRenderer:
@@ -3434,7 +3466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cave Borders
+  m_text: Cave Border Size
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -3723,7 +3755,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 167.59998, y: -68.4}
+  m_AnchoredPosition: {x: 169.172, y: -68.4}
   m_SizeDelta: {x: 23.7028, y: 17.3484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1852627156174031212
@@ -3817,7 +3849,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -9.058379, w: 0}
+  m_margin: {x: 0, y: 0, z: -9.058379, w: 3.540481}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4490,8 +4522,20 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
-  m_IsOn: 1
+      m_Calls:
+      - m_Target: {fileID: 6865712026630763806}
+        m_TargetAssemblyTypeName: CaveUIManager, Assembly-CSharp
+        m_MethodName: SetUseRandom
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_IsOn: 0
 --- !u!1 &1852627156435158325
 GameObject:
   m_ObjectHideFlags: 0
@@ -4653,7 +4697,7 @@ GameObject:
   - component: {fileID: 1852627156451224022}
   - component: {fileID: 1852627156451224025}
   m_Layer: 5
-  m_Name: Slider (1)
+  m_Name: Min Room Size Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4726,16 +4770,16 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1852627156786801499}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
+  m_MaxValue: 100
+  m_WholeNumbers: 1
+  m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: UpdateRoomFillLabel
-        m_Mode: 1
+      - m_Target: {fileID: 6865712026630763806}
+        m_TargetAssemblyTypeName: CaveUIManager, Assembly-CSharp
+        m_MethodName: SetMinRoomSize
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5041,7 +5085,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 42.228176, y: -67.8}
+  m_AnchoredPosition: {x: 43.800198, y: -67.8}
   m_SizeDelta: {x: 212.9131, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1852627156724247485
@@ -5088,17 +5132,17 @@ MonoBehaviour:
   m_FillRect: {fileID: 1852627156301940555}
   m_HandleRect: {fileID: 1852627156398874409}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
+  m_MinValue: 10
+  m_MaxValue: 500
+  m_WholeNumbers: 1
+  m_Value: 10
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: UpdateRoomFillLabel
-        m_Mode: 1
+      - m_Target: {fileID: 6865712026630763806}
+        m_TargetAssemblyTypeName: CaveUIManager, Assembly-CSharp
+        m_MethodName: SetWidth
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5119,7 +5163,7 @@ GameObject:
   - component: {fileID: 1852627156727671611}
   - component: {fileID: 1852627156727671608}
   m_Layer: 5
-  m_Name: Value (1)
+  m_Name: Passage Width Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5141,7 +5185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 86, y: -14.000027}
+  m_AnchoredPosition: {x: 88.5, y: -14.000027}
   m_SizeDelta: {x: 11.8754, y: 17.3484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1852627156727671611
@@ -5235,7 +5279,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -6.0767636, y: 0, z: -7.6804857, w: 0}
+  m_margin: {x: -6.0767636, y: 0, z: -8.263198, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5513,7 +5557,7 @@ GameObject:
   - component: {fileID: 1852627156829970917}
   - component: {fileID: 1852627156829970914}
   m_Layer: 5
-  m_Name: Value (1)
+  m_Name: Wall Size Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5535,7 +5579,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 86.8, y: 37.3}
+  m_AnchoredPosition: {x: 88.7, y: 36.6}
   m_SizeDelta: {x: 23.7028, y: 17.3484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1852627156829970917
@@ -6079,7 +6123,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "100\u200B"
+  m_text: "0\u200B"
   m_isRightToLeft: 1
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -6160,7 +6204,7 @@ GameObject:
   - component: {fileID: 1852627157018266899}
   - component: {fileID: 1852627157018266896}
   m_Layer: 5
-  m_Name: Label (1)
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6329,7 +6373,7 @@ GameObject:
   - component: {fileID: 1852627157112059136}
   - component: {fileID: 1852627157112059139}
   m_Layer: 5
-  m_Name: Slider (1)
+  m_Name: Cave Border Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6402,16 +6446,16 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1852627156960107414}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
+  m_MaxValue: 10
+  m_WholeNumbers: 1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: UpdateRoomFillLabel
-        m_Mode: 1
+      - m_Target: {fileID: 6865712026630763806}
+        m_TargetAssemblyTypeName: CaveUIManager, Assembly-CSharp
+        m_MethodName: SetCaveBorder
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6506,7 +6550,7 @@ GameObject:
   - component: {fileID: 1852627157129145141}
   - component: {fileID: 1852627157129145140}
   m_Layer: 5
-  m_Name: Slider (1)
+  m_Name: Passage Width Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6578,17 +6622,17 @@ MonoBehaviour:
   m_FillRect: {fileID: 1852627155364525674}
   m_HandleRect: {fileID: 1852627155693694997}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
+  m_MinValue: 1
+  m_MaxValue: 10
+  m_WholeNumbers: 1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: UpdateRoomFillLabel
-        m_Mode: 1
+      - m_Target: {fileID: 6865712026630763806}
+        m_TargetAssemblyTypeName: CaveUIManager, Assembly-CSharp
+        m_MethodName: SetPassageWidth
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6713,7 +6757,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1852627157165392395}
   m_TextViewport: {fileID: 1852627156472544225}
   m_TextComponent: {fileID: 1852627156963740064}
@@ -6760,7 +6804,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 100
+  m_Text: 0
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -6881,8 +6925,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -78.6, y: 109.69998}
-  m_SizeDelta: {x: 125.719, y: 20.409}
+  m_AnchoredPosition: {x: -41.781487, y: 109.69998}
+  m_SizeDelta: {x: 199.3559, y: 20.409}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1852627157203481759
 CanvasRenderer:
@@ -6912,7 +6956,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Smoothing
+  m_text: Smoothing Iterations
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -6993,7 +7037,7 @@ GameObject:
   - component: {fileID: 1852627157215282765}
   - component: {fileID: 1852627157215282762}
   m_Layer: 5
-  m_Name: Value (1)
+  m_Name: Cave Border Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7015,7 +7059,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 87.2, y: 65.39999}
+  m_AnchoredPosition: {x: 88.7, y: 64.69997}
   m_SizeDelta: {x: 23.7028, y: 17.3484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1852627157215282765
@@ -7298,7 +7342,7 @@ GameObject:
   - component: {fileID: 1852627157308140581}
   - component: {fileID: 1852627157308140580}
   m_Layer: 5
-  m_Name: Slider (1)
+  m_Name: Wall Size Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7371,16 +7415,16 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1852627157120743439}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
+  m_MaxValue: 100
+  m_WholeNumbers: 1
+  m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: UpdateRoomFillLabel
-        m_Mode: 1
+      - m_Target: {fileID: 6865712026630763806}
+        m_TargetAssemblyTypeName: CaveUIManager, Assembly-CSharp
+        m_MethodName: SetMinWallSize
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
