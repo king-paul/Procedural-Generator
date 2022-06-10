@@ -84,7 +84,7 @@ public class MapGenerator : MonoBehaviour
 		caveMesh.mesh = mesh;*/
 
 		//meshGenerator.GenerateMesh(cave.Map, tileSize);
-		meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize);		
+		meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize, true);		
 	}
 
 	void PrintCaveToConsole()

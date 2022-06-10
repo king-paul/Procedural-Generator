@@ -8,10 +8,11 @@ using ProceduralGeneration;
 public class CaveUIManager : MonoBehaviour
 {
     public MeshGenerator meshGenerator;
+    public Camera camera2d;
 
     [Header("Sliders")]
     public Slider widthSlider;
-    public Slider heightSLider;
+    public Slider heightSlider;
     public Slider fillPercentSlider;
     public Slider smoothingSlider;
     public Slider caveBorderSizeSlider;
@@ -44,8 +45,9 @@ public class CaveUIManager : MonoBehaviour
     private int minimumRoomSize = 50;
     private int passageWidth = 1;
     private int tileSize = 1;
-    
-    int wallHeight = 5;
+    private bool is2D;
+
+    private int wallHeight = 5;
 
     public void SetWidth(float value)
     {
@@ -117,6 +119,22 @@ public class CaveUIManager : MonoBehaviour
         }
     }
 
+    public void SwitchViewMode(bool mode2d)
+    {
+        is2D = mode2d;
+
+        if(mode2d)
+        {
+            camera2d.gameObject.SetActive(true);
+            meshGenerator.transform.rotation = Quaternion.Euler(270, 0, 0);
+        }
+        else
+        {
+            camera2d.gameObject.SetActive(false);
+            meshGenerator.transform.rotation = Quaternion.identity;
+        }
+    }
+
     public void GenerateCave()
     {
         var cave = new CaveGenerator(width, height, randomFillPercent, smoothingIterations, borderSize,
@@ -128,7 +146,7 @@ public class CaveUIManager : MonoBehaviour
             seedInput.text = seed.ToString();
         }
 
-        meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize);
+        meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize, is2D);
     }
 
     public void Regenerate()
@@ -136,14 +154,14 @@ public class CaveUIManager : MonoBehaviour
         var cave = new CaveGenerator(width, height, randomFillPercent, smoothingIterations, borderSize,
             minimumWallSize, minimumRoomSize, passageWidth, false, false, seed, false);
 
-        meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize);
+        meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize, is2D);
     }
 
     private void Start()
     {
         // Set slider values
         widthSlider.value = width;
-        heightSLider.value = height;
+        heightSlider.value = height;
         fillPercentSlider.value = randomFillPercent;
         smoothingSlider.value = smoothingIterations;
         caveBorderSizeSlider.value = borderSize;
@@ -153,7 +171,7 @@ public class CaveUIManager : MonoBehaviour
 
         // set value labels text
         widthValue.text = widthSlider.value.ToString();
-        heightValue.text = heightSLider.value.ToString();
+        heightValue.text = heightSlider.value.ToString();
         fillPercentValue.text = fillPercentSlider.value.ToString();
         smoothingValue.text = smoothingSlider.value.ToString();
         caveBordersValue.text = caveBorderSizeSlider.value.ToString();

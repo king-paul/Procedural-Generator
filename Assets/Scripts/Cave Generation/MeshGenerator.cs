@@ -10,7 +10,7 @@ public class MeshGenerator : MonoBehaviour
     //public SquareGrid squareGrid;
     public MeshFilter walls;
     public MeshFilter cave;
-    public bool is2D; // toggles 2D/3D mode
+    //public bool is2D; // toggles 2D/3D mode
 
     public float wallHeight = 5;    
     public int textureTiling = 10;
@@ -40,7 +40,8 @@ public class MeshGenerator : MonoBehaviour
     /// </summary>
     /// <param name="configs">2D array of marching square configuration values</param>
     /// <param name="squareSize">The scale of the space taken up by each square on the grid</param>
-    public void GenerateMesh(byte[,] configs, float squareSize)
+    /// <param name="is2D">Toggles 2D/3D mode</param>
+    public void GenerateMesh(byte[,] configs, float squareSize, bool is2D)
     {
         // delete all existing dictionary values, outlines and checked vertices
         // before generating a new mesh
@@ -90,7 +91,7 @@ public class MeshGenerator : MonoBehaviour
 
         if (is2D)
         {
-            //Generate2DColliders();
+            Generate2DColliders();
         }
         else
         {
