@@ -49,6 +49,8 @@ public class CaveUIManager : MonoBehaviour
 
     private int wallHeight = 5;
 
+    private bool generated = false;
+
     public void SetWidth(float value)
     {
         widthValue.text = width.ToString();
@@ -147,10 +149,15 @@ public class CaveUIManager : MonoBehaviour
         }
 
         meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize, is2D);
+
+        generated = true;
     }
 
     public void Regenerate()
     {
+        if (!generated)
+            return;
+
         var cave = new CaveGenerator(width, height, randomFillPercent, smoothingIterations, borderSize,
             minimumWallSize, minimumRoomSize, passageWidth, false, false, seed, false);
 
@@ -158,7 +165,7 @@ public class CaveUIManager : MonoBehaviour
     }
 
     private void Start()
-    {
+    {        
         // Set slider values
         widthSlider.value = width;
         heightSlider.value = height;
@@ -169,6 +176,7 @@ public class CaveUIManager : MonoBehaviour
         minRooomSizeSlider.value = minimumRoomSize;
         passageWidthSlider.value = passageWidth;
 
+        
         // set value labels text
         widthValue.text = widthSlider.value.ToString();
         heightValue.text = heightSlider.value.ToString();
@@ -183,7 +191,7 @@ public class CaveUIManager : MonoBehaviour
         seedInput.text = seed.ToString();
         useRandomToggle.isOn = useRandomSeed;
 
-        GenerateCave();
+        //GenerateCave();
     }
 
 }

@@ -86,7 +86,7 @@ namespace ProceduralGeneration
                              passageWidth, forceAccessToMain, useRandomSeed, seed, generateMesh, tileSize, wallHeight);
 
             Map = new bool[height + (borderSize), width + (borderSize)];
-            MarchingSquares = new byte[height + (borderSize), width + (borderSize)];
+            MarchingSquares = new byte[height + (borderSize*2) -1, width + (borderSize*2) -1];
 
             Seed = GetSeedValue(cave);
 
