@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public Camera camera;
+    public Camera camera3d;
+    public Camera camera2d;
     public GameObject uIPanel;
 
     [SerializeField]
@@ -14,10 +15,12 @@ public class InputManager : MonoBehaviour
     private Vector3 verticalMovement;
     private Vector3 velocity;
 
+    public bool Is2D { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Is2D = false;
     }
 
     // Update is called once per frame
@@ -29,12 +32,20 @@ public class InputManager : MonoBehaviour
         }
 
         if (Input.mouseScrollDelta.y != 0)
-            camera.fieldOfView -= Input.mouseScrollDelta.y;
+        {
+            if (Is2D)
+                camera2d.orthographicSize -= Input.mouseScrollDelta.y;
+            else
+                camera3d.fieldOfView -= Input.mouseScrollDelta.y;
+        }
 
         horizontalMovement = Vector3.right * Input.GetAxisRaw("Horizontal");
         verticalMovement = Vector3.up * Input.GetAxisRaw("Vertical");
         velocity = (horizontalMovement + verticalMovement) * cameraMoveSpeed;
 
-        camera.transform.Translate(velocity * Time.deltaTime);
+        if(Is2D)
+            camera2d.transform.Translate(velocity * Time.deltaTime);
+        else
+            camera3d.transform.Translate(velocity * Time.deltaTime);
     }
 }

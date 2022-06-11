@@ -9,6 +9,7 @@ public class CaveUIManager : MonoBehaviour
 {
     public MeshGenerator meshGenerator;
     public Camera camera2d;
+    public InputManager inputManager;
 
     [Header("Sliders")]
     public Slider widthSlider;
@@ -124,16 +125,18 @@ public class CaveUIManager : MonoBehaviour
     public void SwitchViewMode(bool mode2d)
     {
         is2D = mode2d;
+        inputManager.Is2D = is2D;
 
-        if(mode2d)
+        if (mode2d)
         {
             camera2d.gameObject.SetActive(true);
-            meshGenerator.transform.rotation = Quaternion.Euler(270, 0, 0);
+            meshGenerator.transform.rotation = Quaternion.Euler(270, 0, 0);            
         }
         else
         {
             camera2d.gameObject.SetActive(false);
             meshGenerator.transform.rotation = Quaternion.identity;
+
         }
     }
 

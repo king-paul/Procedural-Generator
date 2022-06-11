@@ -559,6 +559,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1135046998}
     - target: {fileID: 6865712026630763806, guid: ea2a99bd134358746acbef1baca3f01e, type: 3}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 1100023656}
+    - target: {fileID: 6865712026630763806, guid: ea2a99bd134358746acbef1baca3f01e, type: 3}
       propertyPath: meshGenerator
       value: 
       objectReference: {fileID: 508107923}
@@ -792,7 +796,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d344e8b20d8e9b4896750203b5e9d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1928072471884523596}
+  camera3d: {fileID: 1928072471884523596}
+  camera2d: {fileID: 1135046998}
   uIPanel: {fileID: 2146842820}
   cameraMoveSpeed: 10
 --- !u!4 &1100023657
