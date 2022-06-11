@@ -88,7 +88,7 @@ public class MeshGenerator : MonoBehaviour
             uvs[i] = new Vector2(percentX, percentY);
         }
         mesh.uv = uvs;        
-
+        
         if (is2D)
         {
             Generate2DColliders();
@@ -287,12 +287,15 @@ public class MeshGenerator : MonoBehaviour
     void AssignVertices(Node[] points)
     {
         for (int i = 0; i < points.Length; i++)
-        {
+        {             
             if (points[i].vertexIndex == -1)
             {
                 points[i].vertexIndex = vertices.Count;
                 vertices.Add(points[i].position);
+
+                //Debug.Log("Triangle " + (vertices.Count / 3) + " " + vertices[i]);
             }
+            
         }
     }
 
@@ -307,6 +310,8 @@ public class MeshGenerator : MonoBehaviour
         AddTriangleToDictionary(triangle.vertexIndexA, triangle);
         AddTriangleToDictionary(triangle.vertexIndexB, triangle);
         AddTriangleToDictionary(triangle.vertexIndexC, triangle);
+
+        //Debug.Log("a: " + a.position +  ", b: " + b.position + ", c: " + c.position);
     }
 
     void AddTriangleToDictionary(int vertexIndexKey, Triangle triangle)

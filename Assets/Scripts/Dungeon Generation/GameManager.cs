@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public TilemapVisualizer tilemapVisualizer;
     public bool logInput = false;
 
+    public GameObject uIPanel;
+
     [Header("Basic Settings")]
     [Header("GUI Components")]    
     public Toggle corridorFirstToggle;
@@ -57,6 +59,17 @@ public class GameManager : MonoBehaviour
 
         string map = GetMapString(mapData);
         Debug.Log("Map Data:\n" + map);*/
+    }
+
+    private void Update()
+    {
+        if(Input.GetButtonDown("Cancel") || Input.GetMouseButtonDown(1))
+        {
+            if(uIPanel.activeInHierarchy)
+                uIPanel.SetActive(false);
+            else
+                uIPanel.SetActive(true);
+        }
     }
 
     string GetMapString(int[,] mapData)
