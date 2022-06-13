@@ -38,7 +38,7 @@ public class CaveUIManager : MonoBehaviour
     private int width = 128;
     private int height = 72;
     private int seed = 0;
-    private bool useRandomSeed = false;
+    private bool useRandomSeed = true;
     private int randomFillPercent = 50;
     private int smoothingIterations = 5;
     private int borderSize = 3;
@@ -142,7 +142,7 @@ public class CaveUIManager : MonoBehaviour
     public void GenerateCave()
     {
         var cave = new CaveGenerator(width, height, randomFillPercent, smoothingIterations, borderSize,
-            minimumWallSize, minimumRoomSize, passageWidth, false, useRandomSeed, seed, false);
+            minimumWallSize, minimumRoomSize, passageWidth, useRandomSeed, seed, false);
 
         if (useRandomSeed)
         {
@@ -150,7 +150,10 @@ public class CaveUIManager : MonoBehaviour
             seedInput.text = seed.ToString();
         }
 
-        meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize, is2D);
+        meshGenerator.GenerateMesh(cave.Map, tileSize);
+        //meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize, is2D);
+
+        //meshGenerator.CompareMarchingSquares(cave.MarchingSquares);
 
         generated = true;
     }
@@ -161,9 +164,10 @@ public class CaveUIManager : MonoBehaviour
             return;
 
         var cave = new CaveGenerator(width, height, randomFillPercent, smoothingIterations, borderSize,
-            minimumWallSize, minimumRoomSize, passageWidth, false, false, seed, false);
+            minimumWallSize, minimumRoomSize, passageWidth, false, seed, false);
 
-        meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize, is2D);
+        meshGenerator.GenerateMesh(cave.Map, tileSize);
+        //meshGenerator.GenerateMesh(cave.MarchingSquares, tileSize, is2D);
     }
 
     private void Start()

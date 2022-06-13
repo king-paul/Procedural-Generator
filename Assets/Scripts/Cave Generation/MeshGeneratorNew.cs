@@ -1,24 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class MeshGenerator : MonoBehaviour
+public class MeshGeneratorNew : MonoBehaviour
 {
     /// <summary>
     /// The grid to generate the mesh inside
     /// </summary>
-    public SquareGrid squareGrid;
+    //public SquareGrid squareGrid;
     public MeshFilter walls;
-    public MeshFilter cave;    
+    public MeshFilter cave;
+    //public bool is2D; // toggles 2D/3D mode
 
-    public float wallHeight = 5;
-    public bool is2D; // toggles 2D/3D mode
-
-    public int tileAmount = 10;
-
-    [Header("Debug Text")]
-    public Text marchingSquaresText;
+    public float wallHeight = 5;    
+    public int textureTiling = 10;
 
     List<Vector3> vertices;
     List<int> triangles;
@@ -31,56 +26,69 @@ public class MeshGenerator : MonoBehaviour
     // list of all the triangles contained in the cave mesh
     Dictionary<int, List<Triangle>> triangleDictionary = new Dictionary<int, List<Triangle>>();
 
+    Square[,] marchingSquares;
+
+    Vector3 CoordToWorldPoint(int width, int height, Vector2 position)
+    {
+        return new Vector3(-width / 2 + .5f + position.x, 0, -height / 2 + .5f + position.y);
+    }
+
+
     // Called from Map Generator class
     /// <summary>
     /// Generates a new mesh to go on the grid
     /// </summary>
-    /// <param name="map">2D array of numbers for the procedully generated map</param>
+    /// <param name="configs">2D array of marching square configuration values</param>
     /// <param name="squareSize">The scale of the space taken up by each square on the grid</param>
-    public void GenerateMesh(bool[,] map, float squareSize)
+    /// <param name="is2D">Toggles 2D/3D mode</param>
+    public void GenerateMesh(byte[,] configs, float squareSize, bool is2D)
     {
         // delete all existing dictionary values, outlines and checked vertices
         // before generating a new mesh
         triangleDictionary.Clear();
         outlines.Clear();
-        checkedVertices.Clear();
-
-        squareGrid = new SquareGrid(map, squareSize);
+        checkedVertices.Clear();  
+        
+        marchingSquares = new Square[configs.GetLength(0), configs.GetLength(1)];
 
         vertices = new List<Vector3>();
         triangles = new List<int>();
-        
-        for (int y = 0; y < squareGrid.squares.GetLength(0); y++)
+
+        for (int y = 0; y < configs.GetLength(0); y++)
         {
-            for (int x = 0; x < squareGrid.squares.GetLength(1); x++)
-            {
-                TriangulateSquare(squareGrid.squares[y, x]);
+            for (int x = 0; x < configs.GetLength(1); x++)
+            {                
+
+                marchingSquares[y, x] = new Square(CoordToWorldPoint(configs.GetLength(1), configs.GetLength(0), new Vector2(x, y)),
+                                                   squareSize, configs[y,x]);
+
+                TriangulateSquare(marchingSquares[y, x]);
             }
 
         }
-
+        
         // create the new mesh
-        Mesh mesh = new Mesh();
-        cave.mesh = mesh;
+        Mesh mesh = new Mesh();        
 
         // assig the vertices and triangles to the mesh
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
         mesh.RecalculateNormals();
 
+        cave.mesh = mesh;
+        
         // Get vertex percentages        
         Vector2[] uvs = new Vector2[vertices.Count];
         for (int i = 0; i < uvs.Length; i++)
         {
             // x percent = map width / 2
-            float percentX = Mathf.InverseLerp(-map.GetLength(1) / 2 * squareSize, map.GetLength(1) / 2 * squareSize, vertices[i].x) * tileAmount;
+            float percentX = Mathf.InverseLerp(-marchingSquares.GetLength(1) / 2 * squareSize, marchingSquares.GetLength(1) / 2 * squareSize, vertices[i].x) * textureTiling;
             // y percent = map height / 2
-            float percentY = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, vertices[i].z) * tileAmount;
+            float percentY = Mathf.InverseLerp(-marchingSquares.GetLength(0) / 2 * squareSize, marchingSquares.GetLength(0) / 2 * squareSize, vertices[i].z) * textureTiling;
             uvs[i] = new Vector2(percentX, percentY);
         }
-        mesh.uv = uvs;
-
-
+        mesh.uv = uvs;        
+        
         if (is2D)
         {
             Generate2DColliders();
@@ -90,24 +98,6 @@ public class MeshGenerator : MonoBehaviour
             CreateWallMesh();
         }
 
-        //DisplayMarchingSquareConfigs();
-    }
-
-    public void CompareMarchingSquares(byte[,] configurations)
-    {
-        for(int y=0; y < configurations.GetLength(0); y++)
-        {
-            for (int x = 0; x < configurations.GetLength(1); x++)
-            {
-                if (squareGrid.squares[y, x].configuration != (int) configurations[y, x])
-                {
-                    Debug.LogError("Fail at (" + x + ", " + y + ")\n" +
-                              "Expected: " + squareGrid.squares[y, x].configuration +
-                              ", Got: " + configurations[y, x]);
-                }
-            }
-                
-        }
     }
 
     /// <summary>
@@ -274,7 +264,6 @@ public class MeshGenerator : MonoBehaviour
     /// <param name="points">Takes in a node array of any size contining the points</param>
     void MeshFromPoints(params Node[] points)
     {
-
         AssignVertices(points); // turns points into vertices
 
         // if there are 3 or more vertices create a triangle      
@@ -298,12 +287,15 @@ public class MeshGenerator : MonoBehaviour
     void AssignVertices(Node[] points)
     {
         for (int i = 0; i < points.Length; i++)
-        {
+        {             
             if (points[i].vertexIndex == -1)
             {
                 points[i].vertexIndex = vertices.Count;
                 vertices.Add(points[i].position);
+
+                //Debug.Log("Triangle " + (vertices.Count / 3) + " " + vertices[i]);
             }
+            
         }
     }
 
@@ -318,6 +310,8 @@ public class MeshGenerator : MonoBehaviour
         AddTriangleToDictionary(triangle.vertexIndexA, triangle);
         AddTriangleToDictionary(triangle.vertexIndexB, triangle);
         AddTriangleToDictionary(triangle.vertexIndexC, triangle);
+
+        //Debug.Log("a: " + a.position +  ", b: " + b.position + ", c: " + c.position);
     }
 
     void AddTriangleToDictionary(int vertexIndexKey, Triangle triangle)
@@ -444,21 +438,43 @@ public class MeshGenerator : MonoBehaviour
     }
     #endregion
 
-
-    private void DisplayMarchingSquareConfigs()
+    /*
+    private void OnDrawGizmos()
     {
-        string configsString = "";
-
-        for(int y=0; y < squareGrid.squares.GetLength(0); y++)
+        // if the square grid has been defined iterate through it
+        if (marchingSquares != null)
         {
-            for (int x = 0; x < squareGrid.squares.GetLength(1); x++)
+            for (int x = 0; x < marchingSquares.GetLength(0); x++)
             {
-                configsString += squareGrid.squares[y, x].configuration.ToString("X");
+                for (int y = 0; y < marchingSquares.GetLength(1); y++)
+                {
+                    // Draws the control nodes. Black if they are active, white if they are not
+
+                    // draw top left control node
+                    Gizmos.color = (marchingSquares[x, y].topLeft.active) ? Color.black : Color.white;
+                    Gizmos.DrawCube(marchingSquares[x, y].topLeft.position, Vector3.one * .4f);
+
+                    // draw top right contol node
+                    Gizmos.color = (marchingSquares[x, y].topRight.active) ? Color.black : Color.white;
+                    Gizmos.DrawCube(marchingSquares[x, y].topRight.position, Vector3.one * .4f);
+
+                    // draw bottom right control node
+                    Gizmos.color = (marchingSquares[x, y].bottomRight.active) ? Color.black : Color.white;
+                    Gizmos.DrawCube(marchingSquares[x, y].bottomRight.position, Vector3.one * .4f);
+
+                    // draw bottom left control node
+                    Gizmos.color = (marchingSquares[x, y].bottomLeft.active) ? Color.black : Color.white;
+                    Gizmos.DrawCube(marchingSquares[x, y].bottomLeft.position, Vector3.one * .4f);
+
+                    // draw create midpoint positions
+                    Gizmos.color = Color.grey;
+                    Gizmos.DrawCube(marchingSquares[x, y].centreTop.position, Vector3.one * .15f);
+                    Gizmos.DrawCube(marchingSquares[x, y].centreRight.position, Vector3.one * .15f);
+                    Gizmos.DrawCube(marchingSquares[x, y].centreBottom.position, Vector3.one * .15f);
+                    Gizmos.DrawCube(marchingSquares[x, y].centreLeft.position, Vector3.one * .15f);
+
+                }
             }
-
-            configsString += "\n";
         }
-
-        marchingSquaresText.text = configsString;
-    }
+    }*/
 }

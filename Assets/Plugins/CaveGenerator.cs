@@ -37,7 +37,7 @@ namespace ProceduralGeneration
         // External Functions
         [DllImport("Procedural Generation Library.dll")]
         protected static extern IntPtr GenerateCave(int width, int height, int fillPercent, int smoothingIterations, int borderSize,
-        int wallThresholdSize, int roomThresholdSize, int passageWidth, bool forceAccessToMain, bool useRandomSeed, int seed,
+        int wallThresholdSize, int roomThresholdSize, int passageWidth, bool useRandomSeed, int seed,
         bool generateMesh, float tileSize, float wallHeight);
 
         [DllImport("Procedural Generation Library.dll")]
@@ -78,15 +78,15 @@ namespace ProceduralGeneration
 
         // Constructor
         public CaveGenerator(int width = 128, int height = 72, int fillPercent = 53, int smoothingIterations = 5, int borderSize = 3,
-                        int wallThresholdSize = 50, int roomThresholdSize = 50, int passageWidth = 1, bool forceAccessToMain = true,
-                        bool useRandomSeed = true, int seed = 0, bool generateMesh = false, float tileSize = 1, float wallHeight = 5)
+                        int wallThresholdSize = 50, int roomThresholdSize = 50, int passageWidth = 1,
+                        bool useRandomSeed = false, int seed = 0, bool generateMesh = false, float tileSize = 1, float wallHeight = 5)
         {
             IntPtr cave =
                 GenerateCave(width, height, fillPercent, smoothingIterations, borderSize, wallThresholdSize, roomThresholdSize,
-                             passageWidth, forceAccessToMain, useRandomSeed, seed, generateMesh, tileSize, wallHeight);
+                             passageWidth, useRandomSeed, seed, generateMesh, tileSize, wallHeight);
 
-            Map = new bool[height + (borderSize), width + (borderSize)];
-            MarchingSquares = new byte[height + (borderSize*2) -1, width + (borderSize*2) -1];
+            Map = new bool[height + (borderSize * 2), width + (borderSize * 2)];
+            MarchingSquares = new byte[height + (borderSize * 2) -1, width + (borderSize * 2) -1];
 
             Seed = GetSeedValue(cave);
 
@@ -102,9 +102,9 @@ namespace ProceduralGeneration
             }
 
             // fill marching squares array
-            for (int y = 0; y < MarchingSquares.GetLength(0); y++)
+            for (int y = 0; y < MarchingSquares.GetLength(0) - 1; y++)
             {
-                for (int x = 0; x < MarchingSquares.GetLength(1); x++)
+                for (int x = 0; x < MarchingSquares.GetLength(1) - 1; x++)
                 {
                     MarchingSquares[y, x] = (byte) GetMarchingSquareValue(x, y, cave);
                 }
