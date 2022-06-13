@@ -72,6 +72,18 @@ public class DungeonUIManager : MonoBehaviour
         }
     }
 
+    public void SetCorridorFirstDefaults()
+    {
+        startPositionXField.text = "50";
+        startPositionYField.text = "50";
+    }
+
+    public void SetRoomFirstDefaults()
+    {
+        startPositionXField.text = "0";
+        startPositionYField.text = "0";
+    }
+
     string GetMapString(int[,] mapData)
     {
         string mapString = "";
