@@ -9,7 +9,7 @@ using TMPro;
 using ProceduralGeneration;
 using System;
 
-public class GameManager : MonoBehaviour
+public class DungeonUIManager : MonoBehaviour
 {
     //public AbstractDungeonGenerator generator;
     public TilemapVisualizer tilemapVisualizer;

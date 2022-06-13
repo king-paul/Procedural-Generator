@@ -62,6 +62,11 @@ public abstract class AbstractDungeonGenerator : MonoBehaviour
         Generate();
     }
 
+    public void ClearDungeon()
+    {
+        tilemapVisualizer.Clear();
+    }
+
     public abstract void Generate();
 
     protected List<DungeonTile> GetTileData()

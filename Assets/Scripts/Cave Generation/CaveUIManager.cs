@@ -136,7 +136,6 @@ public class CaveUIManager : MonoBehaviour
         {
             camera2d.gameObject.SetActive(false);
             meshGenerator.transform.rotation = Quaternion.identity;
-
         }
     }
 
